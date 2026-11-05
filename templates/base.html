@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f5ef">
+<title>{% block title %}Flavour Fusion — Cook something memorable{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+<script defer src="{{ url_for('static',filename='app.js') }}"></script>
+</head><body>
+<header class="site-header"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span><span>flavour<span class="brand-light">fusion</span><small>THE RECIPE JOURNAL</small></span></a>
+<button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+<nav class="nav-links"><a href="{{ url_for('home') }}">Explore</a><a href="{{ url_for('generate') }}">AI Recipe Studio <span class="new-pill">AI</span></a>{% if current_user %}<a href="{{ url_for('saved') }}">Saved</a><a href="{{ url_for('planner') }}">Meal planner</a><a class="nav-cta" href="{{ url_for('new_recipe') }}">＋ Publish recipe</a><span class="user-chip">{{ current_user.name.split(' ')[0] }}</span><a href="{{ url_for('logout') }}">Sign out</a>{% else %}<a href="{{ url_for('login') }}">Sign in</a><a class="nav-cta" href="{{ url_for('register') }}">Join the table ↗</a>{% endif %}</nav></header>
+<main class="page-shell">
+{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack">{% for category,message in messages %}<div class="flash flash-{{ category }}">{{ message }}<button aria-label="Dismiss" onclick="this.parentElement.remove()">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer"><div class="footer-brand"><span class="brand-mark">✳</span> flavourfusion</div><p>Good food brings us together. Find your next favourite.</p><div>© {{ year }} Flavour Fusion · Made for curious home cooks</div></footer>
+</body></html>
